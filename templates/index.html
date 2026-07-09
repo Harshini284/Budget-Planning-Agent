@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-text">
+        <h1>Plan smarter with your AI budget companion.</h1>
+        <p>Track income, control expenses, predict savings, and receive clear financial guidance in one place.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{{ url_for('register') }}">Create account</a>
+            <a class="btn btn-outline" href="{{ url_for('login') }}">Sign in</a>
+        </div>
+    </div>
+    <div class="hero-card">
+        <h3>What you can do</h3>
+        <ul>
+            <li>Monitor monthly income and expenses</li>
+            <li>Receive AI-backed recommendations</li>
+            <li>Export reports in Excel or PDF</li>
+            <li>Visualize spending with interactive charts</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

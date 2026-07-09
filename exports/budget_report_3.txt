@@ -1,0 +1,10 @@
+AI Budget Planning Report
+
+User: Umarani
+
+Metric | Value
+Monthly Income | ₹500,000.00
+Monthly Expense | ₹95,000.00
+Remaining Balance | ₹405,000.00
+Savings | ₹405,000.00
+Savings Goal | ₹100,000.00

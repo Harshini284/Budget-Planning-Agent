@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Your financial dashboard</h2>
+        <p class="text-muted">Use this view to track your progress and improve your monthly budget.</p>
+    </div>
+    <div class="col-md-4 text-md-end">
+        <a class="btn btn-primary" href="{{ url_for('budget') }}">Add income or expense</a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card summary-card">
+            <div class="text-muted">Monthly Income</div>
+            <div class="metric-value">{{ summary.monthly_income | round(2) }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card summary-card">
+            <div class="text-muted">Monthly Expense</div>
+            <div class="metric-value">{{ summary.monthly_expense | round(2) }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card summary-card">
+            <div class="text-muted">Remaining Balance</div>
+            <div class="metric-value">{{ summary.remaining_balance | round(2) }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card summary-card">
+            <div class="text-muted">Savings</div>
+            <div class="metric-value">{{ summary.savings | round(2) }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="section-heading">
+                <h4 class="mb-1">Profile Settings</h4>
+                <p class="text-muted mb-0">Keep your financial profile up to date.</p>
+            </div>
+            <form method="post">
+                {{ form.hidden_tag() }}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Phone</label>
+                        {{ form.phone(class_='form-control') }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Occupation</label>
+                        {{ form.occupation(class_='form-control') }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Monthly Salary</label>
+                        {{ form.monthly_salary(class_='form-control') }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Savings Goal</label>
+                        {{ form.savings_goal(class_='form-control') }}
+                    </div>
+                </div>
+                <button class="btn btn-primary mt-3" type="submit">Save profile</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <div class="section-heading">
+                <h4 class="mb-1">Recommended Budget Plan</h4>
+                <p class="text-muted mb-0">Your categories update as you add expenses.</p>
+            </div>
+            <div class="row g-2">
+                {% for label, value in [('Rent', budget_plan.rent), ('Food', budget_plan.food), ('Shopping', budget_plan.shopping), ('Transport', budget_plan.transport), ('Entertainment', budget_plan.entertainment), ('Bills', budget_plan.bills)] %}
+                <div class="col-md-6">
+                    <div class="plan-pill">
+                        <span>{{ label }}</span>
+                        <strong>{{ value | round(2) }}</strong>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="col-md-6">
+                    <div class="plan-pill highlight">
+                        <span>Suggested Savings</span>
+                        <strong>{{ budget_plan.savings | round(2) }}</strong>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="plan-pill highlight">
+                        <span>AI Forecasted Savings</span>
+                        <strong>{{ budget_plan.predicted_savings | round(2) }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="section-heading">
+                <h4 class="mb-1">AI Recommendations</h4>
+                <p class="text-muted mb-0">Smart suggestions from your activity.</p>
+            </div>
+            <ul class="recommendation-list">
+                {% for item in suggestions %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card mt-4 assistant-card">
+            <div class="section-heading">
+                <h4 class="mb-1">AI Budget Assistant</h4>
+                <p class="text-muted mb-0">Ask anything about savings or spending.</p>
+            </div>
+            <form method="post">
+                <textarea class="form-control mb-2" name="assistant_prompt" rows="3" placeholder="Example: How can I save more this month?"></textarea>
+                <button class="btn btn-outline-primary btn-sm" type="submit">Ask assistant</button>
+            </form>
+            {% if assistant_reply %}
+            <div class="assistant-bubble">{{ assistant_reply }}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

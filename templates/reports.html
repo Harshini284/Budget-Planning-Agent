@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card">
+            <h3 class="mb-3">Summary</h3>
+            <p><strong>Monthly Income:</strong> {{ summary.monthly_income | round(2) }}</p>
+            <p><strong>Monthly Expense:</strong> {{ summary.monthly_expense | round(2) }}</p>
+            <p><strong>Remaining Balance:</strong> {{ summary.remaining_balance | round(2) }}</p>
+            <p><strong>Savings:</strong> {{ summary.savings | round(2) }}</p>
+            <p><strong>Budget Utilization:</strong> {{ summary.budget_utilization | round(2) }}%</p>
+            <div class="mt-3">
+                <a class="btn btn-primary me-2" href="{{ url_for('export_excel') }}">Export Excel</a>
+                <a class="btn btn-outline" href="{{ url_for('export_pdf') }}">Export PDF</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <h3 class="mb-3">Expense Distribution</h3>
+            {{ pie_chart|safe }}
+        </div>
+        <div class="card">
+            <h3 class="mb-3">Monthly Expense Trend</h3>
+            {{ line_chart|safe }}
+        </div>
+    </div>
+</div>
+{% endblock %}

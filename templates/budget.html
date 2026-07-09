@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <h3 class="mb-3">Add Income</h3>
+            <form method="post">
+                {{ income_form.hidden_tag() }}
+                <input type="hidden" name="income_submit" value="1">
+                <div class="mb-3">
+                    <label class="form-label">Income Type</label>
+                    {{ income_form.income_type(class_='form-select') }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Amount</label>
+                    {{ income_form.amount(class_='form-control') }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Month</label>
+                    {{ income_form.month(class_='form-control') }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Year</label>
+                    {{ income_form.year(class_='form-control') }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Note</label>
+                    {{ income_form.note(class_='form-control') }}
+                </div>
+                <button class="btn btn-primary" type="submit">Add income</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h4>Recent Income</h4>
+            <table class="table table-sm">
+                <thead><tr><th>Type</th><th>Amount</th><th>Month</th></tr></thead>
+                <tbody>
+                    {% for item in incomes %}
+                    <tr><td>{{ item.income_type }}</td><td>{{ item.amount }}</td><td>{{ item.month }} {{ item.year }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <h3 class="mb-3">Record Expense</h3>
+            <form method="post">
+                {{ expense_form.hidden_tag() }}
+                <input type="hidden" name="expense_submit" value="1">
+
+                <div class="row form-row align-items-end">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center gap-3 inline-field">
+                            <label class="form-label inline-label">Category</label>
+                            {{ expense_form.category(class_='form-select accent-input flex-grow-1') }}
+                        </div>
+                        <small class="form-text text-muted">Or enter a custom category below</small>
+                        <input class="form-control mt-2" type="text" name="custom_category" placeholder="Medical, Recharge, Travel...">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center gap-3 inline-field">
+                            <label class="form-label inline-label">Amount</label>
+                            <div class="input-group flex-grow-1">
+                                <span class="input-group-text currency">₹</span>
+                                {{ expense_form.amount(class_='form-control accent-input') }}
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3 mt-3 inline-field">
+                            <label class="form-label inline-label">Date</label>
+                            {{ expense_form.expense_date(class_='form-control') }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label class="form-label">Description</label>
+                    {{ expense_form.description(class_='form-control') }}
+                </div>
+
+                <button class="btn btn-primary" type="submit">Add expense</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h4>Recent Expenses</h4>
+            <table class="table table-sm">
+                <thead><tr><th>Category</th><th>Amount</th><th>Date</th></tr></thead>
+                <tbody>
+                    {% for item in expenses %}
+                    <tr><td>{{ item.category }}</td><td>{{ item.amount }}</td><td>{{ item.expense_date }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
