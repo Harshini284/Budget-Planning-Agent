@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Budget Planning Agent
 
 A full-stack Flask application that helps users track income, manage expenses, receive AI-style budget guidance, and export financial reports.
@@ -35,3 +36,7 @@ A full-stack Flask application that helps users track income, manage expenses, r
 
 ## Notes
 The application uses SQLite by default for a ready-to-run local experience. The ML model is trained automatically on first launch if model.pkl is not present.
+=======
+# Budget-Planning-Agent
+AI-powered Budget Planning Agent that creates personalized monthly budgets and provides financial recommendations based on user income, expenses, and goals.
+>>>>>>> c4c34a29dada0e2f41733e57d3f1e8e1d25961da
